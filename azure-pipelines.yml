@@ -78,7 +78,6 @@ stages:
           kubernetesServiceConnection: '$(kubernetesServiceConnection)'
           namespace: '$(namespace)'
           manifests: |
-                $(System.ArtifactStagingDirectory)/manifests/deployment.yml
-                $(System.ArtifactStagingDirectory)/manifests/service.yml
+                $(System.ArtifactStagingDirectory)/manifests/App-deployment-service.yml
           containers: |
                 $(containerRegistry)/$(imageRepository):$(tag)
