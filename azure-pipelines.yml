@@ -60,7 +60,7 @@ stages:
        inputs:
          buildType: 'current'
          artifactName: 'manifests'
-         targetPath: '$(System.ArtifactStagingDirectory)/manifests'
+         targetPath: '$(System.ArtifactStagingDirectory)/drop'
 
          
      - task: KubernetesManifest@1
@@ -79,6 +79,6 @@ stages:
           kubernetesServiceConnection: '$(kubernetesServiceConnection)'
           namespace: '$(namespace)'
           manifests: |
-                $(System.ArtifactStagingDirectory)/manifests/App-deployment-service.yml
+                $(System.ArtifactStagingDirectory)/drop/App-deployment-service.yml
           containers: |
                 $(containerRegistry)/$(imageRepository):$(tag)
