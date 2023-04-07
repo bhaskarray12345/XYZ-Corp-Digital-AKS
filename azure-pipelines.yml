@@ -60,7 +60,7 @@ stages:
        inputs:
          buildType: 'current'
          artifactName: 'manifests'
-         targetPath: '$(System.ArtifactDirectory)/manifests'
+         targetPath: ''
 
          
      - task: KubernetesManifest@1
