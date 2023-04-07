@@ -9,9 +9,6 @@ trigger:
 
 variables:
 
-  # Web app name
-  webAppName: 'XYZ-Corp-Digital-Azure-Web-App'
-
   # Environment name
   environmentName: 'test'
 
@@ -23,6 +20,7 @@ variables:
   imageRepository: 'XYZCorpDigitalACR'
   namespace: 'default'
   imagePullSecret: imageSecret
+  tag: $(Build.BuildId)
 
 stages:
 - stage: Build
