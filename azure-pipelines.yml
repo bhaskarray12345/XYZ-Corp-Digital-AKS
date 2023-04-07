@@ -19,7 +19,7 @@ variables:
   kubernetesServiceConnection: 'XYZ-Corp-AKS-Conn'
   imageRepository: 'XYZCorpDigitalACR'
   namespace: 'default'
-  imagePullSecret: imageSecret
+  imagePullSecret: imagesecret
   tag: $(Build.BuildId)
 
 stages:
