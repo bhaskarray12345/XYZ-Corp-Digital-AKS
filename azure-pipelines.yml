@@ -40,11 +40,13 @@ stages:
         Dockerfile: '**/Dockerfile'
         tags: |
           $(tag)
-    - task: PublishPipelineArtifact@1
+
+    - task: PublishBuildArtifacts@1
       inputs:
-        targetPath: '$(Pipeline.Workspace)'
-        artifact: 'manifests'
-        publishLocation: 'pipeline'
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: 'drop'
+        publishLocation: 'Container'
+   
         
 - stage: Deploy
   displayName: Deploy stage
@@ -57,7 +59,7 @@ stages:
      - task: DownloadPipelineArtifact@2
        inputs:
          buildType: 'current'
-         artifactName: 'mainfests'
+         artifactName: 'drop'
          targetPath: '$(Pipeline.Workspace)'
          
      - task: KubernetesManifest@1
@@ -76,7 +78,7 @@ stages:
           kubernetesServiceConnection: '$(kubernetesServiceConnection)'
           namespace: '$(namespace)'
           manifests: |
-                $(System.ArtifactsDirectory)/manifests/deployment.yml
-                $(System.ArtifactsDirectory)/manifests/service.yml
+                $(System.ArtifactStagingDirectory)/drop/deployment.yml
+                $(System.ArtifactStagingDirectory)/drop/service.yml
           containers: |
                 $(containerRegistry)/$(imageRepository):$(tag)
