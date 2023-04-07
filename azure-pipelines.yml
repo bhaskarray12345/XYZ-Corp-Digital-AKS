@@ -41,11 +41,11 @@ stages:
         tags: |
           $(tag)
 
-    - task: PublishBuildArtifacts@1
+    - task: PublishPipelineArtifact@1
       inputs:
-        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-        ArtifactName: 'drop'
-        publishLocation: 'Container'
+        targetPath: '$(Pipeline.Workspace)'
+        artifact: 'manifests'
+        publishLocation: 'pipeline'
    
         
 - stage: Deploy
@@ -59,8 +59,8 @@ stages:
      - task: DownloadPipelineArtifact@2
        inputs:
          buildType: 'current'
-         artifactName: 'drop'
-         targetPath: '$(Pipeline.Workspace)'
+         artifactName: 'manifests'
+         targetPath: '$(System.ArtifactStagingDirectory)'
          
      - task: KubernetesManifest@1
        inputs:
@@ -78,7 +78,7 @@ stages:
           kubernetesServiceConnection: '$(kubernetesServiceConnection)'
           namespace: '$(namespace)'
           manifests: |
-                $(System.ArtifactStagingDirectory)/drop/deployment.yml
-                $(System.ArtifactStagingDirectory)/drop/service.yml
+                $(System.ArtifactStagingDirectory)/manifests/deployment.yml
+                $(System.ArtifactStagingDirectory)/manifests/service.yml
           containers: |
                 $(containerRegistry)/$(imageRepository):$(tag)
