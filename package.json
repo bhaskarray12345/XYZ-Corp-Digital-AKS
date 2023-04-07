@@ -1,0 +1,16 @@
+{
+  "name": "xyz-corp-digital-azure-web-app",
+  "version": "1.0.0",
+  "description": "===============================================================================\r This is a XYZ Corp web MVC application in Node JS hosted inside Azure Web apps.\r The backend application in written in Node JS 18.x.\r It will be hosted in Azure Web apps and deployed via ADO CI/CD automated pipeline.\r ===============================================================================",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2"
+  }
+}
