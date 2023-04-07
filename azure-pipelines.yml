@@ -16,7 +16,7 @@ variables:
   vmImageName: 'ubuntu-latest'
 
   containerRegistryServiceConn: 'XYZ-Corp-Digital-ACR-Service-Conn'
-  kubernetesServiceConnection: 'XYZ-Corp-Digital-AKS-Service-Conn'
+  kubernetesServiceConnection: 'XYZ-Corp-AKS-Conn'
   imageRepository: 'XYZCorpDigitalACR'
   namespace: 'default'
   imagePullSecret: imageSecret
