@@ -40,10 +40,15 @@ stages:
         Dockerfile: '**/Dockerfile'
         tags: |
           $(tag)
-
+    - task: CopyFiles@2
+      inputs:
+        SourceFolder: '**/'
+        Contents: '*.yml'
+        TargetFolder: '$(Pipeline.Workspace)/manifests'
+      
     - task: PublishPipelineArtifact@1
       inputs:
-        targetPath: '$(Pipeline.Workspace)'
+        targetPath: '$(Pipeline.Workspace)/manifests'
         artifact: 'manifests'
         publishLocation: 'pipeline'
    
@@ -56,13 +61,6 @@ stages:
     pool:
       vmImage: $(vmImageName)
     steps:
-     - task: DownloadPipelineArtifact@2
-       inputs:
-         buildType: 'current'
-         artifactName: 'manifests'
-         targetPath: '$(System.ArtifactStagingDirectory)/drop'
-
-         
      - task: KubernetesManifest@1
        inputs:
           action: 'createSecret'
@@ -79,6 +77,6 @@ stages:
           kubernetesServiceConnection: '$(kubernetesServiceConnection)'
           namespace: '$(namespace)'
           manifests: |
-                $(System.ArtifactStagingDirectory)/drop/App-deployment-service.yml
+                $(Pipeline.Workspace)/manifests/App-deployment-service.yml
           containers: |
                 $(containerRegistry)/$(imageRepository):$(tag)
